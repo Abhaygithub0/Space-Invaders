@@ -8,12 +8,14 @@
 #include "../../header/Gameplay/GameplayService.h"
 #include"../../Header/Elements/ElementService.h"
 #include"../../Header/Sound/SoundService.h"
+#include"../../Header/Bullet/BulletService.h"
 
 namespace Global
 {
     class ServiceLocator
     {
     private:
+        Bullet::BulletService* bullet_service;
         Event::EventService* event_service;
         Graphic::GraphicService* graphic_service;
         UI::UIService* ui_service;
@@ -46,6 +48,7 @@ namespace Global
         Enemy::EnemyService* getEnemyService();
         Element::ElementService* getElementService();
         Sound::SoundService* getSoundService();
+        Bullet::BulletService* getBulletService();
         void deleteServiceLocator();
     };
 }

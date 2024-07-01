@@ -1,9 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include"../../Header/Enemy/EnemyConfig.h"
-#include"../../Header/Enemy/EnemyModel.h"
-#include"../../Header/Enemy/EnemyView.h"
-#include"../../Header/Enemy/EnemyService.h"
+
 namespace Enemy
 {
     class EnemyView;
@@ -16,13 +13,20 @@ namespace Enemy
     {
     protected:
 
+        float vertical_movement_speed = 30.f;
+        float horizontal_movement_speed = 200.0f;
+
+        float rate_of_fire = 3.f; //we want to fire the bullet every 3 seconds
+        float elapsed_fire_duration = 0.f; //variable to check how long it has been since we last fired
+
         EnemyView* enemy_view;
         EnemyModel* enemy_model;
 
+        void updateFireTimer();
+        void processBulletFire();
+        virtual void fireBullet() = 0;
+
         virtual void move() = 0;
-        //void moveLeft();
-        //void moveRight();
-        //void moveDown();
 
         sf::Vector2f getRandomInitialPosition();
         void handleOutOfBounds();
