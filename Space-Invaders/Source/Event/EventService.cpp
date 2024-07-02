@@ -1,20 +1,24 @@
 #include "../../Header/Event/EventService.h"
-#include "../../Header/Main/GameService.h"
 #include "../../Header/Graphic/GraphicService.h"
-namespace Event {
+#include "../../Header/Global/ServiceLocator.h"
+#include <iostream>>
 
-    
 
-    EventService::EventService()
-    {
-        game_window = nullptr;
-    }
 
-    EventService::~EventService() = default; // Calls the default destructor
+
+namespace Event  
+{
+
+    using namespace Global;
+
+    EventService::EventService() { game_window = nullptr; }
+
+    EventService::~EventService() = default;
 
     void EventService::initialize()
     {
-        game_window = Global::ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+        game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+        
     }
 
     void EventService::update()
@@ -26,6 +30,23 @@ namespace Event {
         updateKeyboardButtonsState(A_button_state, sf::Keyboard::A);
         updateKeyboardButtonsState(D_button_state, sf::Keyboard::D);
     }
+
+    void EventService::processEvents()
+    {
+        if (isGameWindowOpen()) {
+            while (game_window->pollEvent(game_event)) {
+                // Check for window closure
+                if (gameWindowWasClosed() || hasQuitGame())
+                {
+                    game_window->close();
+                }
+
+            }
+
+        }
+    }
+
+
     void EventService::updateMouseButtonsState(ButtonState& current_button_state, sf::Mouse::Button mouse_button)
     {
         if (sf::Mouse::isButtonPressed(mouse_button))
@@ -65,25 +86,17 @@ namespace Event {
             current_button_state = ButtonState::RELEASED;
         }
     }
-   
 
-    void EventService::processEvents()
-    {
-        if (isGameWindowOpen()) {
-            while (game_window->pollEvent(game_event)) {
-                // Check for window closure
-                if (gameWindowWasClosed() || hasQuitGame()) {
-                    game_window->close();
-                }
-            }
-        }
-    }
 
-    bool EventService::hasQuitGame() const
-    {
-        return isKeyboardEvent() && pressedEscapeKey(); // Only true if the ESC key is pressed and a keyboard event has been registered
-    }
-    
+    bool EventService::isGameWindowOpen() { return game_window != nullptr; }
+
+    bool EventService::gameWindowWasClosed() { return game_event.type == sf::Event::Closed; }
+
+    bool EventService::hasQuitGame() { return (isKeyboardEvent() && pressedEscapeKey()); }
+
+    bool EventService::isKeyboardEvent() { return game_event.type == sf::Event::KeyPressed; }
+
+    bool EventService::pressedEscapeKey() { return game_event.key.code == sf::Keyboard::Escape; }
 
     bool EventService::pressedLeftKey() { return left_arrow_button_state == ButtonState::HELD; }
 
@@ -96,26 +109,4 @@ namespace Event {
     bool EventService::pressedLeftMouseButton() { return left_mouse_button_state == ButtonState::PRESSED; }
 
     bool EventService::pressedRightMouseButton() { return right_mouse_button_state == ButtonState::PRESSED; }
-    
-    // Checks if a keyboard key has been pressed
-    bool EventService::isKeyboardEvent() const
-    {
-        return game_event.type == sf::Event::KeyPressed;
-    }
-
-    // Control click on the SFML functions to see what they do internally
-    bool EventService::pressedEscapeKey() const
-    {
-        return game_event.key.code == sf::Keyboard::Escape;
-    }
-
-    bool EventService::isGameWindowOpen() const
-    {
-        return game_window != nullptr;
-    }
-
-    bool EventService::gameWindowWasClosed() const
-    {
-        return game_event.type == sf::Event::Closed;
-    }
 }

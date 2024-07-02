@@ -1,13 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-//#include "../Player/PlayerModel.h"
-//#include "../Player/PlayerView.h"
- namespace Player {
 
 
+namespace Player
+{
+    enum class PlayerState;
+    
     class PlayerView;
     class PlayerModel;
-    enum class PlayerState;
 
     class PlayerController
     {
@@ -18,6 +18,7 @@
         void processPlayerInput();
         void moveLeft();
         void moveRight();
+        void fireBullet();
 
     public:
         PlayerController();
@@ -28,6 +29,8 @@
         void render();
 
         sf::Vector2f getPlayerPosition();
+        PlayerState getPlayerState();
+        
     };
-}
 
+}
