@@ -37,4 +37,3 @@ namespace Global
 		static const sf::String button_click_sound_path;
 	};
 }
-

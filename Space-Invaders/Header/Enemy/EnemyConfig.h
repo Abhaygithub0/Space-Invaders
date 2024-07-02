@@ -4,8 +4,8 @@ namespace Enemy
 {
     enum class EnemyType
     {
-        ZAPPER, 
-        SUBZER,
+        ZAPPER,
+        SUBZERO,
         UFO,
         THUNDER_SNAKE,
     };
@@ -22,5 +22,7 @@ namespace Enemy
         LEFT,
         RIGHT,
         DOWN,
+        LEFT_DOWN,
+        RIGHT_DOWN,
     };
 }

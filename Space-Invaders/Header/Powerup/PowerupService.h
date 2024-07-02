@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "SFML/System/Vector2.hpp"
 #include "../../Header/Collectible/ICollectible.h"
@@ -29,4 +30,3 @@ namespace Powerup
 		void destroyPowerup(PowerupController* powerup_controller);
 	};
 }
-

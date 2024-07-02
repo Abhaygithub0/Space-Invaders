@@ -1,7 +1,7 @@
 #include "../../Header/Bullet/BulletService.h"
 #include "../../Header/Bullet/BulletController.h"
 #include "../../Header/Bullet/BulletConfig.h"
-//#include "../../Header/Bullet/Controllers/FrostBulletController.h"
+#include "../../Header/Bullet/Controllers/FrostBulletController.h"
 #include "../../Header/Bullet/Controllers/LaserBulletController.h"
 #include "../../Header/Bullet/Controllers/TorpedoController.h"
 
@@ -33,8 +33,8 @@ namespace Bullet
 		case::Bullet::BulletType::LASER_BULLET:
 			return new LaserBulletController(Bullet::BulletType::LASER_BULLET);
 
-		//case::Bullet::BulletType::FROST_BULLET:
-			//return new FrostBulletController(Bullet::BulletType::FROST_BULLET);
+		case::Bullet::BulletType::FROST_BULLET:
+			return new FrostBulletController(Bullet::BulletType::FROST_BULLET);
 
 		case::Bullet::BulletType::TORPEDO:
 			return new TorpedoController(Bullet::BulletType::TORPEDO);

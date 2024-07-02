@@ -4,9 +4,9 @@
 namespace Enemy
 {
 	EnemyModel::EnemyModel(EnemyType type) {
-
+		
 		enemy_type = type;
-
+	
 	}
 
 	EnemyModel::~EnemyModel() { }
