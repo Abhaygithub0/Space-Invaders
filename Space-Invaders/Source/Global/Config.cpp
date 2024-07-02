@@ -2,6 +2,8 @@
 
 namespace Global
 {
+	const sf::String Config::spaceinvadermylogo_path = "assets/textures/SpaceInvaders.jpg";
+
 	const sf::String Config::outscal_logo_texture_path = "assets/textures/outscal_logo.png";
 
 	const sf::String Config::background_texture_path = "assets/textures/space_invaders_bg.png";

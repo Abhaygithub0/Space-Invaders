@@ -44,6 +44,7 @@ namespace Global
         void initialize();
         void update();
         void render();
+        void deleteServiceLocator();
 
         Event::EventService* getEventService();
         Graphics::GraphicService* getGraphicService();

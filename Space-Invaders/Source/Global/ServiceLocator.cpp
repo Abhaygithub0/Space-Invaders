@@ -47,6 +47,9 @@ namespace Global
 
 	}
 
+	void ServiceLocator::deleteServiceLocator() {
+
+	}
 	void ServiceLocator::createServices()
 	{
 		graphic_service = new GraphicService();

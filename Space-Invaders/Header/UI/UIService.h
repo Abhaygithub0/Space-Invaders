@@ -3,7 +3,7 @@
 
 #include "../../header/UI/GameplayUI/GameplayUIController.h"
 
-
+#include"../../Header/UI/SplashScreen/SplashScreenUIController.h"
 #include "../../header/UI/Interface/IUIController.h"
 
 namespace UI
@@ -11,6 +11,7 @@ namespace UI
 	class UIService
 	{
 	private:
+		SplashScreen::SplashScreenUIController* splash_screen_ui_controller;
 		MainMenu::MainMenuUIController* main_menu_controller;
 		GameplayUI::GameplayUIController* gameplay_ui_controller;
 

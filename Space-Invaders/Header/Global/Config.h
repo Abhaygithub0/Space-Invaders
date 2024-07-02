@@ -6,6 +6,7 @@ namespace Global
 	class Config
 	{
 	public:
+		static const sf::String spaceinvadermylogo_path;
 		static const sf::String outscal_logo_texture_path;
 		static const sf::String background_texture_path;
 		static const sf::String player_texture_path;
