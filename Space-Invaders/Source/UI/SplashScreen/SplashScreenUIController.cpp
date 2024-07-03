@@ -4,6 +4,8 @@
 #include "../../header/Graphics/GraphicService.h"
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Global/Config.h"
+#include "../../header/UI/UIElement/AnimatedImageView.h"
+
 
 namespace UI
 {
@@ -17,7 +19,7 @@ namespace UI
 
         SplashScreenUIController::SplashScreenUIController()
         {
-            outscal_logo_view = new ImageView();
+            outscal_logo_view = new AnimatedImageView();
         }
 
         SplashScreenUIController::~SplashScreenUIController()
@@ -47,7 +49,7 @@ namespace UI
         }
         void SplashScreenUIController::fadeInAnimationCallback()
         {
-            outscal_logo_view->playAnimation(AnimationType::FADE_OUT, logo_animation_duration, std::bind(&SplashScreenUIController::fadeOutAnimationCallback, this));
+            outscal_logo_view->playAnimation(AnimationType::FADE_OUT, splash_screen_duration, std::bind(&SplashScreenUIController::fadeOutAnimationCallback, this));
         }
 
         void SplashScreenUIController::fadeOutAnimationCallback()
@@ -69,7 +71,7 @@ namespace UI
 
         void SplashScreenUIController::show()
         {
-            outscal_logo_view->playAnimation(AnimationType::FADE_IN, logo_animation_duration, std::bind(&SplashScreenUIController::fadeInAnimationCallback, this));
+            outscal_logo_view->playAnimation(AnimationType::FADE_IN, splash_screen_duration, std::bind(&SplashScreenUIController::fadeInAnimationCallback, this));
         }
     }
 }
