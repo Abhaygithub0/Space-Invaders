@@ -18,8 +18,9 @@ namespace UI
 			UIElement::ImageView* outscal_logo_view;
 
 			void initializeOutscalLogo();
-			void updateTimer();
-			void showMainMenu();
+			void fadeInAnimationCallback();
+			void fadeOutAnimationCallback();
+			
 			sf::Vector2f getLogoPosition();
 
 		public:
