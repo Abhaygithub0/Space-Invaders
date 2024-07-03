@@ -65,7 +65,7 @@ namespace Global
 		bullet_service = new BulletService();
 		powerup_service = new PowerupService();
 		collision_service = new CollisionService();
-		//animation_service = new ServiceLocator();
+		animation_service = new AnimationService();
 		ui_service = new UIService();
 		sound_service = new SoundService();
 	}
@@ -82,7 +82,7 @@ namespace Global
 		bullet_service->initialize();
 		powerup_service->initialize();
 		collision_service->initialize();
-		
+		animation_service->initialize();
 		ui_service->initialize();
 		sound_service->initialize();
 	}
@@ -102,6 +102,7 @@ namespace Global
 			bullet_service->update();
 			powerup_service->update();
 			collision_service->update();
+			animation_service->update();
 			
 		}
 
@@ -122,6 +123,7 @@ namespace Global
 			element_service->render();
 			bullet_service->render();
 			powerup_service->render();
+			animation_service->render();
 		
 		}
 
@@ -130,18 +132,18 @@ namespace Global
 
 	void ServiceLocator::clearAllServices()
 	{
-		delete(graphic_service);
-		delete(time_service);
-		delete(event_service);
-		delete(player_service);
 		delete(ui_service);
+		delete(powerup_service);
+		delete(bullet_service);
+		delete(player_service);
 		delete(enemy_service);
 		delete(gameplay_service);
-		delete(element_service);
-		delete(bullet_service);
+		delete(event_service);
+		delete(graphic_service);
+		delete(time_service);
 		delete(sound_service);
 		delete(collision_service);
-		delete(powerup_service);
+		delete(animation_service);
 	}
 
 	ServiceLocator* ServiceLocator::getInstance()
@@ -150,19 +152,15 @@ namespace Global
 		return &instance;
 	}
 
-	AnimationService* ServiceLocator::getAnimationService() { return animation_service; }
-	GraphicService* ServiceLocator::getGraphicService() { return graphic_service; }
 	EventService* ServiceLocator::getEventService() { return event_service; }
-	PlayerService* ServiceLocator::getPlayerService() { return player_service; }
-	
+
+	GraphicService* ServiceLocator::getGraphicService() { return graphic_service; }
+
 	UIService* ServiceLocator::getUIService() { return ui_service; }
-	EnemyService* ServiceLocator::getEnemyService() { return enemy_service; }
-	
-	Collision::CollisionService* ServiceLocator::getCollisionService() { return collision_service; }
 
-	
+	Player::PlayerService* ServiceLocator::getPlayerService() { return player_service; }
 
-
+	Enemy::EnemyService* ServiceLocator::getEnemyService() { return enemy_service; }
 
 	Element::ElementService* ServiceLocator::getElementService() { return element_service; }
 
@@ -170,9 +168,9 @@ namespace Global
 
 	Powerup::PowerupService* ServiceLocator::getPowerupService() { return powerup_service; }
 
-	
 
 
+	Animation::AnimationService* ServiceLocator::getAnimationService() { return animation_service; }
 
 	Time::TimeService* ServiceLocator::getTimeService() { return time_service; }
 
@@ -180,5 +178,6 @@ namespace Global
 
 	Sound::SoundService* ServiceLocator::getSoundService() { return sound_service; }
 
+	Collision::CollisionService* ServiceLocator::getCollisionService() { return collision_service; }
 	
 }
