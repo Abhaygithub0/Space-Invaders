@@ -1,77 +1,63 @@
-#include "../../Header/Player/PlayerService.h"
-#include "../../Header/Global/ServiceLocator.h"
+#include "../../header/Player/PlayerService.h"
+#include "../../header/Player/PlayerController.h"
+#include "../../header/Global/ServiceLocator.h"
+#include "../../header/Collision/ICollider.h"
 
-namespace Player {
-
+namespace Player
+{
+	using namespace Global;
+	using namespace Collision;
 
 	PlayerService::PlayerService()
 	{
-		game_window = nullptr;
+		player_controller = new PlayerController();
 	}
 
-	PlayerService::~PlayerService() = default;
+	PlayerService::~PlayerService()
+	{
+		ServiceLocator::getInstance()->getCollisionService()->removeCollider(dynamic_cast<ICollider*>(player_controller));
+		delete (player_controller);
+	}
 
-	//init
 	void PlayerService::initialize()
 	{
-		game_window = Global::ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
-		initializePlayerSprite();
+		player_controller->initialize();
+		ServiceLocator::getInstance()->getCollisionService()->addCollider(dynamic_cast<ICollider*>(player_controller));
 	}
 
-	//take our players input in update, then set the position.
-	//order is important here
 	void PlayerService::update()
 	{
-		processPlayerInput();
-		player_sprite.setPosition(getPlayerPosition());
+		player_controller->update();
 	}
 
 	void PlayerService::render()
 	{
-		game_window->draw(player_sprite);
+		player_controller->render();
 	}
 
-	void PlayerService::processPlayerInput()
+
+	void PlayerService::increaseEnemiesKilled(int val)
 	{
-		Event::EventService* event_service = Global::ServiceLocator::getInstance()->getEventService(); //get the event service object created in service locator
-
-		if (event_service->isKeyboardEvent()) //check if a key has been pressed
-		{
-			if (event_service->pressedLeftKey())
-			{
-				moveLeft();
-
-			}
-
-			if (event_service->pressedRightKey())
-			{
-				moveRight();
-
-			}
-		}
+		player_controller->increaseEnemiesKilled(val);
 	}
-	void PlayerService::moveLeft()
+	
+	void PlayerService::enableShield()
 	{
-		position.x -= movement_speed *Global:: ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+		player_controller->enableShield();
 	}
 
-	void PlayerService::moveRight()
+	void PlayerService::enableRapidFire()
 	{
-		position.x += movement_speed *Global:: ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+		player_controller->enableRapidFire();
 	}
 
-	void PlayerService::initializePlayerSprite()
+	void PlayerService::enableTrippleLaser()
 	{
-		if (player_texture.loadFromFile(player_texture_path))
-		{
-			player_sprite.setTexture(player_texture);
-			player_sprite.setScale(0.5, 0.5);
-		}
+		player_controller->enableTrippleLaser();
 	}
 
-
-
-	//helper functions
-	sf::Vector2f PlayerService::getPlayerPosition() { return position; }
-	int PlayerService::getMoveSpeed() { return movement_speed; }
+	void PlayerService::reset()
+	{
+		player_controller->reset();
+	}
 }

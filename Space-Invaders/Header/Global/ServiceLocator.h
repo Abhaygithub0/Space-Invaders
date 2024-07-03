@@ -1,67 +1,67 @@
 #pragma once
-#include "../../Header/Graphic/GraphicService.h"
-#include "../../Header/Event/EventService.h"
-#include "../../Header/Player/PlayerService.h"
-#include "../../Header/Global/ServiceLocator.h"
-#include "../../Header/Time/TimeService.h"
-#include "../../Header/UI/UIService.h"
+#include "../../header/Graphics/GraphicService.h"
+#include "../../header/Event/EventService.h"
+#include "../../header/UI/UIService.h"
+#include "../../header/Player/PlayerService.h"
+#include "../../header/Time/TimeService.h"
+#include "../../header/Enemy/EnemyService.h"
+#include "../../header/Gameplay/GameplayService.h"
+#include "../../header/Elements/ElementService.h"
+#include "../../header/Bullet/BulletService.h"
+#include "../../header/Powerup/PowerupService.h"
+#include "../../header/Sound/SoundService.h"
+#include "../../header/Collision/CollisionService.h"
+#include"../../Header/AnimationSystem/AnimationService.h"
 
-// ServiceLocator Class Summary: This class manages access to various services in the application.
-// include relevant headers files
 
-
-namespace Global {
+namespace Global
+{
     class ServiceLocator
     {
     private:
-
-        Graphic::GraphicService* graphic_service;
-        UI::UIService* ui_Service;
+        Animation::AnimationService* animation_service;
         Event::EventService* event_service;
-        Player::PlayerService* player_service;
+        Graphics::GraphicService* graphic_service;
+        UI::UIService* ui_service;
         Time::TimeService* time_service;
-        
-        
+        Gameplay::GameplayService* gameplay_service;
+        Player::PlayerService* player_service;
+        Enemy::EnemyService* enemy_service;
+        Element::ElementService* element_service;
+        Bullet::BulletService* bullet_service;
+        Powerup::PowerupService* powerup_service;
+        Sound::SoundService* sound_service;
+        Collision::CollisionService* collision_service;
 
-        // Private Attributes:
-        // - event_service: Manages event-related functionalities.
-        // - graphic_service: Handles graphics-related tasks.
-        // ..........................
-        // ..........................
 
-        // Private Constructor and Destructor:
-
-        // Constructor for initializing the ServiceLocator.
         ServiceLocator();
-
-        // Destructor for cleaning up resources upon object deletion.
         ~ServiceLocator();
 
-        // Private Methods:
-
-        void createServices(); 			// Creates instances of all services.
-        void clearAllServices(); 		//	Deletes and deallocates memory for all services.
-
-
+        void createServices();
+        void clearAllServices();
 
     public:
-        // Public Methods:
-        static ServiceLocator* getInstance();  // Provides a method to access the unique ServiceLocator instance (object). We will discuss this later.
+        static ServiceLocator* getInstance();
 
-        void initialize(); 			//	Initializes the ServiceLocator.
-        void update(); 				//	Updates all services.
-        void render(); 				//	Renders using the services.
-        Graphic::GraphicService* getGraphicService();
-        UI::UIService* getUIService();
+        void initialize();
+        void update();
+        void render();
+        void deleteServiceLocator();
+
+        Animation::AnimationService* getAnimationService();
         Event::EventService* getEventService();
-        Player::PlayerService* getPlayerService();
+        Graphics::GraphicService* getGraphicService();
+        UI::UIService* getUIService();
         Time::TimeService* getTimeService();
-      
-      
+        Gameplay::GameplayService* getGameplayService();
+        Player::PlayerService* getPlayerService();
+        Enemy::EnemyService* getEnemyService();
+        Element::ElementService* getElementService();
+        Bullet::BulletService* getBulletService();
+        Powerup::PowerupService* getPowerupService();
+        Sound::SoundService* getSoundService();
+        Collision::CollisionService* getCollisionService();
 
-        // Methods to Get Specific Services: 
-          // Retrieve the EventService instance
-       // GraphicService* getGraphicService();   // Retrieve the GraphicService instance
-
+        
     };
 }
